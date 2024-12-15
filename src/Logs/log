@@ -1,0 +1,9 @@
+2024-Dec-15 16:06:04,335 [main] com.testingshastra.Keyword 
+  INFO  Launched chrome browser
+	2024-Dec-15 16:06:08,483 [main] com.stepdefinitions.Hooks 
+  INFO  Launched QA env url
+	2024-Dec-15 16:06:14,235 [main] com.testingshastra.Keyword 
+  INFO  Launched chrome browser
+	2024-Dec-15 16:06:18,399 [main] com.stepdefinitions.Hooks 
+  INFO  Launched QA env url
+	

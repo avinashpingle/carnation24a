@@ -4,11 +4,7 @@
 	<test thread-count="5" name="API Tests">
 
 		<classes>
-			<class name="com.testngdemo.testannotation.ParametersOfTest">
-				<methods>
-					<exclude name = "m1"/>
-				</methods>
-			</class>
+			<class name="com.runner.FeatureRunner"></class>
 		</classes>
 	</test> 
 	
