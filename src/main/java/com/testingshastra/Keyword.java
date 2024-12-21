@@ -1,5 +1,7 @@
 package com.testingshastra;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 import org.apache.log4j.Logger;
@@ -9,13 +11,16 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.testingshastra.errors.InvalidBrowserError;
+import com.testingshastra.util.App;
 
 public class Keyword {
 
@@ -23,9 +28,14 @@ public class Keyword {
 	public static FluentWait<WebDriver> wait = null;
 
 	private static final Logger LOG = Logger.getLogger(Keyword.class);
-	
-	public void launchBrowser(String browserName) {
-		if (browserName.equalsIgnoreCase("Chrome")) {
+
+	public RemoteWebDriver launchBrowser(String browserName) throws MalformedURLException {
+		boolean isOnGrid = App.isOnGrid();
+		if (isOnGrid) {
+			System.out.println("Executing on grid....!");
+			ChromeOptions options = new ChromeOptions();
+			driver = new RemoteWebDriver(new URL("http://192.168.0.141:4441"), options);
+		} else if (browserName.equalsIgnoreCase("Chrome")) {
 			driver = new ChromeDriver();
 			LOG.info("Launched chrome browser");
 		} else if (browserName.equalsIgnoreCase("Firefox")) {
@@ -35,6 +45,7 @@ public class Keyword {
 			driver = new SafariDriver();
 			LOG.info("Launched safari browser");
 		} else {
+
 			throw new InvalidBrowserError(browserName);
 		}
 
@@ -42,6 +53,8 @@ public class Keyword {
 		wait.withTimeout(Duration.ofSeconds(60));
 		wait.pollingEvery((Duration.ofMillis(500)));
 		wait.ignoring(NoSuchElementException.class);
+		
+		return driver;
 	}
 
 	public void launchUrl(String url) {

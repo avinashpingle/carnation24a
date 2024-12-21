@@ -17,4 +17,8 @@ public class App {
 		return PropertiesUtil.getProperty(filePath, env + ".password");
 	}
 
+	public static boolean isOnGrid() {
+		return Boolean.parseBoolean(PropertiesUtil.getProperty(filePath, "isOnGrid"));
+	}
+
 }
